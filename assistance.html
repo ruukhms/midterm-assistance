@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Assistance Tracker</title>
+  <script>
+    // Global array to store student assistance entries
+    let entries = [];
+
+    // Function to add an entry
+    function addEntry() {
+      var entryField = document.getElementById("entryField");
+      var entry = entryField.value.trim();
+
+      if (entry === "") {
+        alert("Invalid entry");
+        return;
+      }
+
+      var entryData = entry.split(" ");
+      if (entryData.length !== 3) {
+        alert("Invalid entry");
+        return;
+      }
+
+      var data = entryData.join(", ");
+
+      entries.push(data);
+
+      entryField.value = "";
+      displayEntries();
+      alert("Entry added successfully");
+    }
+
+    // Function to display the entries
+    function displayEntries() {
+      var entriesSection = document.getElementById("entriesSection");
+      var entriesContent = "<table>";
+
+      for (var i = 0; i < entries.length; i++) {
+        entriesContent += "<tr>";
+        entriesContent += "<td>" + entries[i] + "</td>";
+        entriesContent += "</tr>";
+      }
+
+      entriesContent += "</table>";
+      entriesSection.innerHTML = entriesContent;
+    }
+
+    // Function to display the summary
+    function summary() {
+      var summarySection = document.getElementById("summarySection");
+      var summaryContent = "";
+      var sortedEntries = entries.slice().sort();
+
+      summaryContent += "Number of entries: " + entries.length + "<br><br>";
+      summaryContent += "Entries sorted alphabetically:<br>";
+
+      for (var i = 0; i < sortedEntries.length; i++) {
+        summaryContent += sortedEntries[i] + "<br>";
+      }
+
+      summarySection.innerHTML = summaryContent;
+    }
+  </script>
+</head>
+<body>
+  <h1>Student Assistance Tracker</h1>
+  <form>
+    <label for="entryField">Entry:</label>
+    <input type="text" id="entryField" name="entryField">
+
+    <button type="button" onclick="addEntry()">AddEntry</button>
+    <button type="button" onclick="summary()">Summary</button>
+  </form>
+
+  <h2>Entries</h2>
+  <div id="entriesSection"></div>
+
+  <h2>Summary</h2>
+  <div id="summarySection"></div>
+
+  <script>
+    displayEntries();
+  </script>
+</body>
+</html>
